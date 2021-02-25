@@ -1,0 +1,25 @@
+{
+  "name": "@nguyenvanduocit/vue-cli-module-federation",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "submodules": "git pull --recurse-submodules",
+    "bootstrap": "lerna bootstrap --ignore-scripts",
+    "build": "lerna run --parallel build",
+    "serve": "lerna run --parallel serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyenvanduocit/vue-cli-module-federation.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "dependencies": {
+    "@nguyenvanduocit/auth": "file:packages/auth",
+    "@nguyenvanduocit/shell": "file:packages/shell"
+  }
+}

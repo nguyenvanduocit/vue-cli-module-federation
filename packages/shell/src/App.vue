@@ -1,25 +1,11 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <p>
-    Trong build-time, package này không hề biết đến các package khác.
-  </p>
-  <p>
-    Trong run-time, nó sẽ đi tìm asset của các component khác
-  </p>
-  <p>
-    Button dưới đây được lấy từ auth. Hot reload không hoạt động bởi vì module này không quản lý button.
-  </p>
-  <ButtonLogin/>
+  <router-view/>
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent } from 'vue'
-const ButtonLogin = defineAsyncComponent(() => import('auth/ButtonLogin'))
+import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'App',
-  components: {
-    ButtonLogin
-  }
+  name: 'App'
 })
 </script>
 

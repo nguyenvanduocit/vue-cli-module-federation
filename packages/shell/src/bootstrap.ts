@@ -1,4 +1,15 @@
 import { createApp } from 'vue'
+import router from './router'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+const shellApp = createApp(App)
+shellApp.use(router)
+
+import('auth/Installer').then((auth) => {
+  const option: AuthPluginOptions = {
+    router: router
+  }
+
+  shellApp.use(auth, option)
+  shellApp.mount('#app')
+})

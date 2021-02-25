@@ -32,3 +32,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Define
+
+bootstrap.js dùng để load package async, đảm bảo load các dependency được share bởi các module khác.

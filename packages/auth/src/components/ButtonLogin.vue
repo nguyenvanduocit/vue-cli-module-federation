@@ -1,5 +1,5 @@
 <template>
-  <button @click.prevent="increase">Login button {{ count }}</button>
+  <button @click.prevent="increase">[auth] Login button {{ count }}</button>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import AppBootstrap from '../views/AppBootstrap.vue'
+import ViewHome from '../views/ViewHome.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'bootstrap',
-    component: AppBootstrap
+    name: 'home',
+    component: ViewHome
   }
 ]
 

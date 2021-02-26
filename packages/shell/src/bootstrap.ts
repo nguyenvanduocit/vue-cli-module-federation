@@ -1,23 +1,24 @@
 import { createApp } from 'vue'
-import router from './router'
-import App from './App.vue'
+import router from '@/router'
+import App from '@/App.vue'
 import { userListEnabledModule } from '@/api'
+import { loadInstaller } from '@/util/loadInstaller'
+import { ModuleManifest } from '../types/types'
+import { addNavigation } from '@/hooks/useNavigation'
+
+const remotesToPreload = userListEnabledModule()
+const modules = await Promise.all(remotesToPreload.map(loadInstaller))
+
+modules.forEach((module: ModuleManifest) => {
+  if (Object.prototype.hasOwnProperty.call(module, 'routes')) {
+    module.routes.forEach(router.addRoute)
+  }
+
+  if (Object.prototype.hasOwnProperty.call(module, 'menus')) {
+    module.menus.forEach(addNavigation)
+  }
+})
 
 const shellApp = createApp(App)
 shellApp.use(router)
-const remotesToPreload = userListEnabledModule()
-
-remotesToPreload.forEach(async (modules) => {
-  if (Object.prototype.hasOwnProperty.call(window, modules.name)) {
-    // @ts-ignore
-    const container = window[modules.name]
-    // @ts-ignore
-    const module = await container.get('./Installer')
-    const option: AuthPluginOptions = {
-      router: router
-    }
-    shellApp.use(module(), option)
-  }
-
-  shellApp.mount('#app')
-})
+shellApp.mount('#app')

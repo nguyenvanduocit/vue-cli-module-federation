@@ -1,26 +1,53 @@
 const { ModuleFederationPlugin } = require('webpack').container // eslint-disable-line @typescript-eslint/no-var-requires
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin') // eslint-disable-line @typescript-eslint/no-var-requires
+const CircularDependencyPlugin = require('circular-dependency-plugin') // eslint-disable-line @typescript-eslint/no-var-requires
 const deps = require('./package.json').dependencies // eslint-disable-line @typescript-eslint/no-var-requires
 
+const moduleFederationName = 'auth'
+const moduleFederationPath = process.env.NODE_ENV === 'production' ? 'http://localhost:8080/auth/' : 'http://localhost:3002/'
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? 'http://localhost:8080/auth/' : 'http://localhost:3002/',
+  lintOnSave: true,
+  publicPath: moduleFederationPath,
   devServer: {
     port: 3002,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
-    }
+    historyApiFallback: true
+  },
+  chainWebpack: config => {
+    config
+      .plugin('html')
+      .tap(args => {
+        args[0].excludeChunks = [
+          moduleFederationName // don't include remoteEntry.js to index.html
+        ]
+        return args
+      })
   },
   configureWebpack: {
+    experiments: {
+      topLevelAwait: true
+    },
     plugins: [
+      new CircularDependencyPlugin({
+        exclude: /node_modules/,
+        failOnError: true
+      }),
+      new WebpackManifestPlugin(),
       new ModuleFederationPlugin({
-        name: 'auth',
-        filename: 'remoteEntry.js',
+        name: moduleFederationName,
+        library: {
+          type: 'var',
+          name: moduleFederationName
+        },
+        filename: process.env.NODE_ENV === 'production' ? 'remoteEntry.[contenthash:8].js' : 'remoteEntry.js',
         exposes: {
-          './Installer': '@/installer.ts'
+          './Manifest': '@/manifest.ts'
         },
         shared: {
-          ...deps
+          ...deps,
+          vue: {
+            requiredVersion: deps.vue,
+            singleton: true
+          }
         }
       })
     ]

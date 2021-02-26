@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "declaration": true,
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -19,8 +20,7 @@
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "auth/ButtonLogin": ["../auth/src/components/ButtonLogin"]
+      ]
     },
     "lib": [
       "esnext",

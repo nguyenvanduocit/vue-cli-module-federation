@@ -18,9 +18,5 @@
   },
   "devDependencies": {
     "lerna": "^3.22.1"
-  },
-  "dependencies": {
-    "@nguyenvanduocit/auth": "file:packages/auth",
-    "@nguyenvanduocit/shell": "file:packages/shell"
   }
 }

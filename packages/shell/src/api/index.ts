@@ -1,4 +1,4 @@
-import { Remote } from '@/util'
+import { Remote } from '@/util/loadRemote'
 
 export function userListEnabledModule (): Remote[] {
   return [

@@ -3,7 +3,7 @@ const deps = require('./package.json').dependencies // eslint-disable-line @type
 
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
-  publicPath: process.env.NODE_ENV === 'production' ? 'https://app.trueprofit.io/' : 'http://localhost:3001/',
+  publicPath: process.env.NODE_ENV === 'production' ? 'http://localhost:8080/' : 'http://localhost:3001/',
   devServer: {
     port: 3001,
     historyApiFallback: true,
@@ -18,13 +18,13 @@ module.exports = {
     }
   },
   configureWebpack: {
+    experiments: {
+      topLevelAwait: true
+    },
     plugins: [
       new ModuleFederationPlugin({
         name: 'shell',
         filename: 'remoteEntry.js',
-        remotes: {
-          auth: process.env.NODE_ENV === 'production' ? 'https://app.trueprofit.io/auth/' : 'auth@http://localhost:3002/remoteEntry.js'
-        },
         shared: {
           ...deps
         }

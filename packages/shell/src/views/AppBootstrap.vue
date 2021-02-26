@@ -2,6 +2,7 @@
   <div class="home">
    Loading module
     <router-link to="/auth">Auth</router-link>
+    <br>
   </div>
 </template>
 

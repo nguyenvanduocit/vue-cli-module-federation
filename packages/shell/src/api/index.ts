@@ -1,7 +1,10 @@
-import { ref, Ref } from 'vue'
+import { Remote } from '@/util'
 
-export function userListEnabledModule (): Ref<Map<string, string>> {
-  const enabledModules = ref(new Map<string, string>())
-  enabledModules.value.set('ButtonLogin', 'auth/ButtonLogin')
-  return enabledModules
+export function userListEnabledModule (): Remote[] {
+  return [
+    {
+      name: 'auth',
+      url: process.env.NODE_ENV === 'production' ? 'http://localhost:8080/auth/remoteEntry.js' : 'http://localhost:3002/remoteEntry.js'
+    }
+  ]
 }

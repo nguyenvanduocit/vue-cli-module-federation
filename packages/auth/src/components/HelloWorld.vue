@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    {{ number }}
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -37,7 +38,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ButtonLogin from './ButtonLogin.vue'
-
+import random from 'lodash/random'
 export default defineComponent({
   name: 'HelloWorld',
   components: {
@@ -45,6 +46,12 @@ export default defineComponent({
   },
   props: {
     msg: String
+  },
+  setup () {
+    const number = random(1, 100)
+    return {
+      number
+    }
   }
 })
 </script>

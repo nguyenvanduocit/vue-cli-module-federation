@@ -2,7 +2,7 @@ const { ModuleFederationPlugin } = require('webpack').container // eslint-disabl
 const deps = require('./package.json').dependencies // eslint-disable-line @typescript-eslint/no-var-requires
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? 'https://app.trueprofit.io/' : 'http://localhost:3002/',
+  publicPath: process.env.NODE_ENV === 'production' ? 'http://localhost:8080/auth/' : 'http://localhost:3002/',
   devServer: {
     port: 3002,
     headers: {
@@ -17,7 +17,7 @@ module.exports = {
         name: 'auth',
         filename: 'remoteEntry.js',
         exposes: {
-          './Installer': './src/installer.ts'
+          './Installer': '@/installer.ts'
         },
         shared: {
           ...deps

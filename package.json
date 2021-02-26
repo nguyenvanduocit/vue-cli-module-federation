@@ -6,7 +6,8 @@
     "submodules": "git pull --recurse-submodules",
     "bootstrap": "lerna bootstrap --ignore-scripts",
     "build": "lerna run --parallel build",
-    "serve": "lerna run --parallel serve"
+    "serve": "lerna run --parallel serve",
+    "example": "go run example.go"
   },
   "repository": {
     "type": "git",

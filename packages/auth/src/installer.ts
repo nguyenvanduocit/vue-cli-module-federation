@@ -1,9 +1,5 @@
-import _Vue, { defineAsyncComponent } from 'vue'
-import { Router } from 'vue-router'
-
-type AuthPluginOptions = {
-  router: Router
-}
+import _Vue from 'vue'
+import { AuthPluginOptions } from '@/install'
 
 export function install (Vue: typeof _Vue, options: AuthPluginOptions): void {
   const { router } = options
